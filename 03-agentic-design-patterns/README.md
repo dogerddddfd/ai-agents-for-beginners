@@ -11,7 +11,7 @@ In general, agents should:
 
 - Broaden and scale human capacities (brainstorming, problem-solving, automation, etc.)
 - Fill in knowledge gaps (get me up-to-speed on knowledge domains, translation, etc.)
-- Facilitate and support collaboration in the ways we as individuals prefer to work with others
+- Facilitate and support collaboration in the ways we as individuals prefer to work with othe。rs
 - Make us better versions of ourselves (e.g., life coach/task master, helping us learn emotional regulation and mindfulness skills, building resilience, etc.)
 
 ## This Lesson Will Cover
