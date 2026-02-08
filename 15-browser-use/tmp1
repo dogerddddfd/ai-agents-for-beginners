@@ -1,0 +1,94 @@
+## Understanding the Playwright + Browser-Use Architecture
+
+This notebook uses the **official Playwright integration** pattern from Browser-Use documentation.
+
+### Architecture Flow:
+```
+┌──────────────────┐
+│   Playwright     │ ◄─── Manages browser lifecycle
+│  Browser Manager │      Handles CDP connection
+└────────┬─────────┘      Provides browser instance
+         │
+         │ playwright_browser parameter
+         ▼
+┌──────────────────┐
+│  Browser-Use     │ ◄─── AI-powered automation
+│  Browser Object  │      Wraps Playwright browser
+└────────┬─────────┘      Provides Agent interface
+         │
+         │ uses
+         ▼
+┌──────────────────┐
+│   Agent          │ ◄─── Vision + Decision Making
+│ (with LLM)       │      Structured output extraction
+└──────────────────┘      Natural language tasks
+         │
+         │ powered by
+         ▼
+┌──────────────────┐
+│  Azure OpenAI    │ ◄─── GPT-4 Vision
+│  (LLM + Vision)  │      Analyzes screenshots
+└──────────────────┘      Extracts structured data
+```
+
+### Why This Approach?
+
+**Playwright provides:**
+- ✅ Robust browser lifecycle management
+- ✅ Full Chrome DevTools Protocol control
+- ✅ Stable page and context handling
+- ✅ Built-in waiting and synchronization
+
+**Browser-Use adds:**
+- ✅ AI-powered element finding (no CSS selectors needed!)
+- ✅ Vision-based page understanding
+- ✅ Structured output extraction with Pydantic
+- ✅ Natural language task execution
+
+**Together they enable:**
+- 🎯 "Search for Stockholm Airbnb" → Agent navigates
+- 👁️ Vision reads all prices on the page
+- 📊 Structured extraction → clean Python objects
+- 💰 Price comparison logic → find cheapest
+
+### Our Task Flow:
+1. **Playwright** launches Chrome browser
+2. **Browser-Use Agent** navigates to Airbnb.com
+3. **Agent searches** for "Stockholm, Sweden"
+4. **Vision model** reads and extracts all listing prices
+5. **Structured output** returns typed data (Pydantic models)
+6. **Python code** compares prices and finds cheapest
+7. **Display results** with rich formatting
+
+
+
+## Key Takeaways and Best Practices
+
+### When to Use Agent vs Actor
+
+| Scenario | Use Agent | Use Actor |
+|----------|-----------|-----------|
+| **Dynamic layouts** | ✅ AI adapts to changes | ❌ CSS selectors break |
+| **Known structure** | ❌ Slower than direct control | ✅ Fast and precise |
+| **Finding elements** | ✅ Natural language queries | ❌ Need exact selectors |
+| **Timing control** | ❌ Less predictable | ✅ Full timing control |
+| **Complex workflows** | ✅ Handles unexpected UI | ❌ Requires explicit code |
+
+### Browser-Use Best Practices
+
+1. **Start with Agent for exploration**: Let AI navigate complex sites first
+2. **Switch to Actor for precision**: Use CSS selectors for predictable elements
+3. **Always handle errors**: Websites change—build fallback strategies
+4. **Use structured output**: Pydantic models ensure type-safe data
+5. **Add delays strategically**: Use `asyncio.sleep()` after actions that trigger changes
+6. **Take screenshots**: Visual debugging is invaluable
+7. **Combine approaches**: Hybrid workflows leverage strengths of both paradigms
+
+### Real-World Applications
+
+- **Travel Booking**: Monitor prices, auto-book deals, compare options
+- **E-commerce**: Track inventory, compare prices, automated purchasing
+- **Data Collection**: Scrape dynamic sites, extract structured data
+- **Testing**: Automated UI testing with vision-based verification
+- **Monitoring**: Check website changes, alert on specific conditions
+- **Form Automation**: Fill complex multi-step forms intelligently

@@ -4,7 +4,7 @@ import dotenv
 import os
 dotenv.load_dotenv()
 
-url = os.getenv("API_URL")
+url = "" + os.getenv("API_URL") + "/chat/completions"
 model = os.getenv("MODEL_FREE_8B")
 api_key = os.getenv('API_KEY')
 
